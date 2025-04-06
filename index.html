@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accelerating Drug Discovery with Generative AI</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body class="font-roboto bg-gray-900 text-white">
+
+  <!-- Your sections here (header, hero, features, about us...) -->
+
+  <!-- Contact Form Section -->
+  <section class="py-20" id="contact">
+    <div class="container mx-auto px-6">
+      <h2 class="text-4xl font-bold text-center mb-12">Contact Us</h2>
+      <form class="max-w-lg mx-auto" id="contactForm">
+        <div class="mb-4">
+          <label class="block text-lg font-bold mb-2" for="name">Name</label>
+          <input class="w-full px-4 py-2 text-gray-900 rounded" id="name" placeholder="Your Name" type="text" required />
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg font-bold mb-2" for="email">Email</label>
+          <input class="w-full px-4 py-2 text-gray-900 rounded" id="email" placeholder="Your Email" type="email" required />
+        </div>
+        <div class="mb-4">
+          <label class="block text-lg font-bold mb-2" for="message">Message</label>
+          <textarea class="w-full px-4 py-2 text-gray-900 rounded" id="message" placeholder="Your Message" rows="4" required></textarea>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit">
+          Send Message
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <script>
+    const form = document.getElementById('contactForm');
+
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const name = form.name.value;
+      const email = form.email.value;
+      const message = form.message.value;
+
+      try {
+        const res = await fetch('http://localhost:5500/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, email, message }),
+        });
+
+        const data = await res.json();
+        alert(data.message);
+        form.reset();
+      } catch (err) {
+        alert("Failed to send message.");
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
